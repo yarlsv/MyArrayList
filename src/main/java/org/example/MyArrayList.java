@@ -157,11 +157,6 @@ public class MyArrayList<E> {
         size = 0;
     }
 
-    // отсортировать
-    public void sort() {
-
-    }
-
     /*
     Метод, возвращающий размер массива
      */
