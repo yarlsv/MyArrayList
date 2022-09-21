@@ -5,9 +5,9 @@ import java.util.*;
 import java.util.function.UnaryOperator;
 
 /*
-    "Своя" реализация ArrayList
-    Включает в себя методы добавления элемента (по индексу, значению),
-     его удаления(по индексу, значению), получение элемента по индексу, полного очищения ArrayList
+    * "Своя" реализация ArrayList
+    * Включает в себя методы добавления элемента (по индексу, значению),
+    * его удаления(по индексу, значению), получение элемента по индексу, полного очищения ArrayList
  */
 public class MyArrayList<E> {
 
@@ -15,7 +15,7 @@ public class MyArrayList<E> {
     private static final int DEFAULT_CAPACITY = 10;
 
     /* Создаём массив, где будут хратиться наши элементы*/
-    Object[] elementData;
+    private Object[] elementData;
 
     /* В этой переменной указывается реальное кол-во элементов в массиве */
     private int size = 0;
@@ -162,6 +162,49 @@ public class MyArrayList<E> {
      */
     public int size() {
         return size;
+    }
+
+    public void sort() {
+        sort(elementData, 0, size-1);
+    }
+
+    private void sort(Object[] elementData, int leftBorder, int rightBorder) {
+        if(size==0) {
+            return;
+        }
+
+        if(elementData[0] instanceof Integer) {
+            int leftMarker = leftBorder;
+            int rightMarker = rightBorder;
+            int pivot = (int) elementData[(leftMarker+rightMarker) / 2];
+
+            do {
+                while ((int)elementData[leftMarker] < pivot) {
+                    leftMarker++;
+                }
+
+                while((int) elementData[rightMarker] > pivot) {
+                    rightMarker--;
+                }
+
+                if(leftMarker <= rightMarker) {
+                    if(leftMarker < rightMarker) {
+                        int tmp = (int) elementData[leftMarker];
+                        elementData[leftMarker] = elementData[rightMarker];
+                        elementData[rightMarker] = tmp;
+                    }
+                    leftMarker++;
+                    rightMarker--;
+                }
+            } while (leftMarker <= rightMarker);
+
+            if(leftMarker < rightBorder) {
+                sort(elementData,leftMarker, rightBorder);
+            }
+            if(leftBorder < rightMarker) {
+                sort(elementData, leftBorder, rightMarker);
+            }
+        }
     }
 }
 

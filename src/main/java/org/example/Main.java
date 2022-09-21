@@ -1,14 +1,15 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.TreeMap;
 
 public class Main {
 
     public static void main(String[] args) {
-        MyArrayList<String> myArrayList = new MyArrayList<>();
+        MyArrayList<Integer> myArrayList = new MyArrayList<>();
         for (int Numbers = 0; Numbers <=10; Numbers ++) {
-            myArrayList.add(String.valueOf(Numbers));
+            myArrayList.add(Numbers);
         }
 
         showArray(myArrayList);
@@ -18,13 +19,13 @@ public class Main {
 
         showArray(myArrayList);
 
-        myArrayList.remove("10");
+        myArrayList.add(122);
         showArray(myArrayList);
 
-        myArrayList.add("122");
+        myArrayList.add(0,1000);
         showArray(myArrayList);
 
-        myArrayList.add(0,"1000");
+        myArrayList.sort();
         showArray(myArrayList);
 
     }
