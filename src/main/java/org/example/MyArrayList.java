@@ -163,7 +163,10 @@ public class MyArrayList<E> {
     public int size() {
         return size;
     }
-
+    /*
+        Сортировка на основе QuickSort. Данная сортировка является одной из самых эффективных
+         Среднее время - O(n log (n))
+     */
     public void sort() {
         sort(elementData, 0, size-1);
     }
