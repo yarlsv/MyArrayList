@@ -1,8 +1,7 @@
 package org.example;
 
-import java.lang.annotation.ElementType;
-import java.util.*;
-import java.util.function.UnaryOperator;
+
+import java.util.Arrays;
 
 /*
     * "Своя" реализация ArrayList
@@ -17,6 +16,8 @@ public class MyArrayList<E> {
     /* Создаём массив, где будут хратиться наши элементы*/
     private Object[] elementData;
 
+    private static final Object[] EMPTY_ARRAY = {};
+
     /* В этой переменной указывается реальное кол-во элементов в массиве */
     private int size = 0;
 
@@ -27,9 +28,16 @@ public class MyArrayList<E> {
         elementData = (E[]) new Object[DEFAULT_CAPACITY];
     }
 
-    /* конструктор создаёт массив заданного размера с приведением типа */
+    /* конструктор создаёт массив заданного размера с приведением типа. */
     public MyArrayList (int initialCapacity) {
-        elementData = (E[]) new Object[initialCapacity];
+        if(initialCapacity > 0) {
+            elementData = (E[]) new Object[initialCapacity];
+        } else if (initialCapacity == 0) {
+            this.elementData = EMPTY_ARRAY;
+        } else {
+            throw new IllegalArgumentException("Illegal Capacity: "+
+                    initialCapacity);
+        }
     }
 
     /*
@@ -61,7 +69,8 @@ public class MyArrayList<E> {
         Если при добавлении элемента в массиве нет места, то создаём массив большего размера
      */
     private void ensureCapacity(int minCapacity) {
-        if (size < minCapacity) {
+
+        if (elementData.length <= minCapacity) {
             int NewCapacity = (size * 3) / 2 + 1;
             E[] oldData = (E[]) elementData;
             elementData = (E[]) new Object[NewCapacity];
@@ -141,7 +150,7 @@ public class MyArrayList<E> {
             return;
         }
         size--;
-        E[] newArray = (E[]) new Object[size];
+        E[] newArray = (E[]) Arrays.copyOf(elementData, size);
         System.arraycopy(elementData,0,newArray,0, size);
     }
 
